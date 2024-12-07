@@ -13,8 +13,12 @@ type Solution interface {
 
 // RunAll executes both PartA and PartB for all registered solutions.
 func RunAll() {
-	for id, solution := range solutionRegistry {
-		utils.RunSolution(id, solution.PartA, solution.PartB)
+	for i := 1; i <= 25; i++ {
+		solution, exists := solutionRegistry[i]
+		if !exists {
+			continue
+		}
+		utils.RunSolution(i, solution.PartA, solution.PartB)
 		fmt.Println()
 	}
 }

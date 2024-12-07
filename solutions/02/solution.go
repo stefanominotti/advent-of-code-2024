@@ -1,4 +1,4 @@
-package solution01
+package solution02
 
 import (
 	"advent-of-code/solutions"
