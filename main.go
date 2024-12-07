@@ -3,6 +3,7 @@ package main
 import (
 	"advent-of-code/solutions"
 	_ "advent-of-code/solutions/01"
+	_ "advent-of-code/solutions/02"
 	"flag"
 	"fmt"
 	"os"
