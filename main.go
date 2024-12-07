@@ -5,6 +5,7 @@ import (
 	_ "advent-of-code/solutions/01"
 	_ "advent-of-code/solutions/02"
 	_ "advent-of-code/solutions/03"
+	_ "advent-of-code/solutions/04"
 	"flag"
 	"fmt"
 	"os"
