@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"time"
 )
 
 func filePath(day int) string {
@@ -16,7 +17,10 @@ func RunSolution(day int, processingFunctions ...func(lineIterator *LineIterator
 	downloadInput(day)
 	fmt.Printf("Day %d\n", day)
 	for idx, function := range processingFunctions {
-		fmt.Printf("Part %s: %d\n", string('A'+idx), processFile(day, function))
+		start := time.Now() // Record the start time
+		result := processFile(day, function) // Call your processFile function
+		elapsed := time.Since(start) 
+		fmt.Printf("Part %s: %d (%s)\n", string('A'+idx), result, elapsed)
 	}
 }
 
