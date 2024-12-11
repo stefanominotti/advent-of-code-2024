@@ -35,7 +35,7 @@ func countXmasFromPosition(input [][]string, i int, j int) int {
 				incrementedI := i+iDir*idx
 				incrementedJ := j+jDir*idx
 				// Position is out of bound
-				if (isOutbound(input, incrementedI, incrementedJ)) {
+				if (utils.IsOutbound(input, incrementedI, incrementedJ)) {
 					break
 				}
 				// Expected XMAS word not found
@@ -77,13 +77,13 @@ func isMasDiagonal(input [][]string, i int, j int, diagonal Diagonal) bool {
 
 	startI := i+diagonal[0][0]
 	startJ := j+diagonal[0][1]
-	if (isOutbound(input, startI, startJ)) {
+	if (utils.IsOutbound(input, startI, startJ)) {
 		return false
 	}
 
 	endI := i+diagonal[1][0]
 	endJ := j+diagonal[1][1]
-	if (isOutbound(input, endI, endJ)) {
+	if (utils.IsOutbound(input, endI, endJ)) {
 		return false
 	}
 
@@ -92,10 +92,6 @@ func isMasDiagonal(input [][]string, i int, j int, diagonal Diagonal) bool {
 	}
 	
 	return input[startI][startJ] == "S" && input[endI][endJ] == "M"
-}
-
-func isOutbound(input [][]string, i int, j int) bool {
-	return i < 0 || j < 0 || i >= len(input) || j >= len(input[i])
 }
 
 func wordSearch(lineIterator *utils.LineIterator, searchFunc func([][]string, int, int) int) int {
