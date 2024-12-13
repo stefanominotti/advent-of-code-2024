@@ -46,7 +46,6 @@ func runSolution(lineIterator *utils.LineIterator, getNextOperator func(Operator
 
 func calculateOperators(target int, numbers []int, getNextOperator func(Operator, int, int) Operator) ([]Operator, bool) {
 	operators := make([]Operator, len(numbers)-1)
-	visited := map[string]bool{}
 	// Set starting operators with the ones which gives the lower result
 	for i := 0; i < len(operators); i++ {
 		// If b = 1, a * b < a + b
@@ -57,21 +56,29 @@ func calculateOperators(target int, numbers []int, getNextOperator func(Operator
 			operators[i] = Add
 		}
 	}
-	return calculateOperatorsRec(target, numbers, operators, getNextOperator, visited)
+	partials := make([]int, len(operators))
+    partials[0] = numbers[0]
+	return calculateOperatorsRec(target, numbers, operators, getNextOperator, partials, 0)
 }
 
-func calculateOperatorsRec(target int, numbers []int, operators []Operator, getNextOperator func(Operator, int, int) Operator, visited map[string]bool) ([]Operator, bool) {
-	// Update visited operators combinations map
-	visited[concatOperators(operators)] = true
-	
-	// Calculate result by sequentially applying operators
+func calculateOperatorsRec(target int, numbers []int, operators []Operator, getNextOperator func(Operator, int, int) Operator, partials []int, partialsValid int) ([]Operator, bool) {	
+	// Calculate result by sequentially applying operators starting after the 
+	// partial which are not valid (i.e. the partials after the operator change)
 	// At the same time build an array of the next operators to try
 	// i.e. operators which gives the next higher result than the current ones
-	result := numbers[0]
+	// And also keep tracks of the partial results
+	result := partials[partialsValid]
 	nextOperators := make([]Operator, len(operators))
 	for idx, operator := range operators {
-		nextOperators[idx] = getNextOperator(operator, result, numbers[idx+1])
-		result = applyOperator(result, numbers[idx+1], operator)
+		if partialsValid <= idx {
+			nextOperators[idx] = getNextOperator(operator, result, numbers[idx+1])
+			result = applyOperator(result, numbers[idx+1], operator)
+			if (idx+1 < len(partials)) {
+				partials[idx+1] = result
+			}
+		} else {
+			result = partials[idx+1]
+		}
 	}
 
 	// If target is matched return
@@ -85,8 +92,8 @@ func calculateOperatorsRec(target int, numbers []int, operators []Operator, getN
 		return nil, false
 	}
 
-	// For each operator branch and try the next one
-	for idx := range operators {
+	// For each operator after valid index, branch and try the next one
+	for idx := partialsValid; idx < len(operators); idx++ {
 		// If we already tried the "highest rank" operator skip this branch
 		nextOperator := nextOperators[idx]
 		if nextOperator == None {
@@ -98,13 +105,12 @@ func calculateOperatorsRec(target int, numbers []int, operators []Operator, getN
 		copy(operatorsCopy, operators)
 		operatorsCopy[idx] = nextOperator
 
-		// If we already tried this operators combination skip this branch
-		if _, isVisited := visited[concatOperators(operatorsCopy)]; isVisited {
-			continue
-		}
+		partialsCopy := make([]int, len(partials))
+		copy(partialsCopy, partials)
 
 		// Try the branch by recursively call the function and if the branch is valid return
-		validOperators, isValid := calculateOperatorsRec(target, numbers, operatorsCopy, getNextOperator, visited)
+		// Keep valid the partial results before the operator that is changed
+		validOperators, isValid := calculateOperatorsRec(target, numbers, operatorsCopy, getNextOperator, partialsCopy, idx)
 		if isValid {
 			return validOperators, true
 		}
