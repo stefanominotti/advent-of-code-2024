@@ -10,6 +10,7 @@ import (
 	_ "advent-of-code/solutions/06"
 	_ "advent-of-code/solutions/07"
 	_ "advent-of-code/solutions/08"
+	_ "advent-of-code/solutions/09"
 	"flag"
 	"fmt"
 	"os"
