@@ -126,7 +126,7 @@ func travel(input [][]string, i int, j int, direction Direction, visited [][][]D
 		// and call the travel function with shouldTryObstacles = false (part A) to
 		// just detect if it will end up in a loop
 		if shouldTryObstacles && len(visited[i][j]) == 0 {
-			inputCopied := copyInput(input)
+			inputCopied := utils.CopyMatrix(input)
 			inputCopied[i][j] = "#"
 			possibleObstacles[i][j] = possibleObstacles[i][j] || travelWithoutAddingObstacles(inputCopied, prevI, prevJ, getNextDirection(direction), copyVisited(visited))
 		}
@@ -136,15 +136,6 @@ func travel(input [][]string, i int, j int, direction Direction, visited [][][]D
 	}
 
 	return travel(input, prevI, prevJ, getNextDirection(direction), visited, shouldTryObstacles, possibleObstacles)
-}
-
-func copyInput(input [][]string) [][]string {
-	duplicate := make([][]string, len(input))
-	for i := range input {
-		duplicate[i] = make([]string, len(input[i]))
-		copy(duplicate[i], input[i])
-	}
-	return duplicate
 }
 
 func copyVisited(visited [][][]Direction) [][][]Direction {

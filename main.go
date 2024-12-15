@@ -16,6 +16,7 @@ import (
 	_ "advent-of-code/solutions/12"
 	_ "advent-of-code/solutions/13"
 	_ "advent-of-code/solutions/14"
+	_ "advent-of-code/solutions/15"
 	"flag"
 	"fmt"
 	"os"
