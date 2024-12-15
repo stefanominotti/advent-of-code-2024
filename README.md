@@ -1,4 +1,4 @@
-# Advent of Code 202
+# Advent of Code 2024
 
 **Go** solutions for the [Advent of Code 2024](https://adventofcode.com/2024).
 
