@@ -8,19 +8,10 @@ import (
 
 type Solution06 struct{}
 
-type Direction int
-
-const (
-	Top    Direction = 1
-	Right  Direction = 2
-	Bottom Direction = 3
-	Left   Direction = 4
-)
-
 func (s Solution06) PartA(lineIterator *utils.LineIterator) int {
-	resultComputingFunc := func(input [][]string, i int, j int, direction Direction, visited [][][]Direction) int {
+	resultComputingFunc := func(input [][]string, i int, j int, direction utils.Direction, visited [][][]utils.Direction) int {
 
-		travelWithoutAddingObstacles(input, i, j, Top, visited)
+		travelWithoutAddingObstacles(input, i, j, utils.TopDirection, visited)
 
 		result := 0
 		for _, row := range visited {
@@ -38,14 +29,14 @@ func (s Solution06) PartA(lineIterator *utils.LineIterator) int {
 }
 
 func (s Solution06) PartB(lineIterator *utils.LineIterator) int {
-	resultComputingFunc := func(input [][]string, i int, j int, direction Direction, visited [][][]Direction) int {
+	resultComputingFunc := func(input [][]string, i int, j int, direction utils.Direction, visited [][][]utils.Direction) int {
 		// Build matrix to keep track of possible extra obstacles
 		possibleObstacles := [][]bool{}
 		for _, row := range input {
 			possibleObstacles = append(possibleObstacles, make([]bool, len(row)))
 		}
 
-		travelAddingObstacles(input, i, j, Top, visited, possibleObstacles)
+		travelAddingObstacles(input, i, j, utils.TopDirection, visited, possibleObstacles)
 
 		result := 0
 		for rowIdx, row := range possibleObstacles {
@@ -62,9 +53,9 @@ func (s Solution06) PartB(lineIterator *utils.LineIterator) int {
 	return runSolution(lineIterator, resultComputingFunc)
 }
 
-func runSolution(lineIterator *utils.LineIterator, resultComputingFunc func([][]string, int, int, Direction, [][][]Direction) int) int {
+func runSolution(lineIterator *utils.LineIterator, resultComputingFunc func([][]string, int, int, utils.Direction, [][][]utils.Direction) int) int {
 	input := [][]string{}
-	visited := [][][]Direction{}
+	visited := [][][]utils.Direction{}
 
 	lineIndex := 0
 	i := 0
@@ -73,7 +64,7 @@ func runSolution(lineIterator *utils.LineIterator, resultComputingFunc func([][]
 	for lineIterator.Next() {
 		line := lineIterator.Value()
 		input = append(input, strings.Split(line, ""))
-		visited = append(visited, make([][]Direction, len(line)))
+		visited = append(visited, make([][]utils.Direction, len(line)))
 
 		if idx := strings.Index(line, "^"); idx != -1 {
 			i = lineIndex
@@ -82,24 +73,24 @@ func runSolution(lineIterator *utils.LineIterator, resultComputingFunc func([][]
 		lineIndex += 1
 	}
 
-	return resultComputingFunc(input, i, j, Top, visited)
+	return resultComputingFunc(input, i, j, utils.TopDirection, visited)
 }
 
-func travelWithoutAddingObstacles(input [][]string, i int, j int, direction Direction, visited [][][]Direction) bool {
+func travelWithoutAddingObstacles(input [][]string, i int, j int, direction utils.Direction, visited [][][]utils.Direction) bool {
 	return travel(input, i, j, direction, visited, false, nil)
 }
 
-func travelAddingObstacles(input [][]string, i int, j int, direction Direction, visited [][][]Direction, possibleObstacles [][]bool) bool {
+func travelAddingObstacles(input [][]string, i int, j int, direction utils.Direction, visited [][][]utils.Direction, possibleObstacles [][]bool) bool {
 	return travel(input, i, j, direction, visited, true, possibleObstacles)
 }
 
-func travel(input [][]string, i int, j int, direction Direction, visited [][][]Direction, shouldTryObstacles bool, possibleObstacles [][]bool) bool {
-	directionMoves := getDirectionMoves(direction)
+func travel(input [][]string, i int, j int, direction utils.Direction, visited [][][]utils.Direction, shouldTryObstacles bool, possibleObstacles [][]bool) bool {
+	directionMoves := utils.GetDirectionMoves(direction)
 	var prevI, prevJ int
 	// Start straight line travel
 	for {
 		// If combination of position and direction already visited, return true, it's a loop
-		if isDirectionInSlice(visited[i][j], direction) {
+		if utils.IsInSlice(visited[i][j], direction) {
 			return true
 		}
 
@@ -138,51 +129,28 @@ func travel(input [][]string, i int, j int, direction Direction, visited [][][]D
 	return travel(input, prevI, prevJ, getNextDirection(direction), visited, shouldTryObstacles, possibleObstacles)
 }
 
-func copyVisited(visited [][][]Direction) [][][]Direction {
-	duplicatedVisited := make([][][]Direction, len(visited))
+func copyVisited(visited [][][]utils.Direction) [][][]utils.Direction {
+	duplicatedVisited := make([][][]utils.Direction, len(visited))
 	for i := range visited {
-		duplicatedVisited[i] = make([][]Direction, len(visited[i]))
+		duplicatedVisited[i] = make([][]utils.Direction, len(visited[i]))
 		for j := range visited[i] {
-			duplicatedVisited[i][j] = make([]Direction, len(visited[i][j]))
+			duplicatedVisited[i][j] = make([]utils.Direction, len(visited[i][j]))
 			copy(duplicatedVisited[i][j], visited[i][j])
 		}
 	}
 	return duplicatedVisited
 }
 
-func isDirectionInSlice(directions []Direction, direction Direction) bool {
-	for _, dir := range directions {
-		if direction == dir {
-			return true
-		}
-	}
-	return false
-}
-
-func getNextDirection(direction Direction) Direction {
+func getNextDirection(direction utils.Direction) utils.Direction {
 	switch direction {
-	case Top:
-		return Right
-	case Right:
-		return Bottom
-	case Bottom:
-		return Left
-	case Left:
-		return Top
-	}
-	panic("Invalid direction")
-}
-
-func getDirectionMoves(direction Direction) []int {
-	switch direction {
-	case Top:
-		return []int{-1, 0}
-	case Right:
-		return []int{0, 1}
-	case Bottom:
-		return []int{1, 0}
-	case Left:
-		return []int{0, -1}
+	case utils.TopDirection:
+		return utils.RightDirection
+	case utils.RightDirection:
+		return utils.BottomDirection
+	case utils.BottomDirection:
+		return utils.LeftDirection
+	case utils.LeftDirection:
+		return utils.TopDirection
 	}
 	panic("Invalid direction")
 }
