@@ -17,11 +17,11 @@ const (
 	Desc      Sorting = 2
 )
 
-func (s Solution02) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution02) PartA(lineIterator *utils.LineIterator) any {
 	return countValidReports(lineIterator, isReportOk)
 }
 
-func (s Solution02) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution02) PartB(lineIterator *utils.LineIterator) any {
 	isReportOk := func(report []int) bool {
 		if isReportOk(report) {
 			return true

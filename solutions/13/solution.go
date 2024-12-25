@@ -16,11 +16,11 @@ type ClawMachine struct {
 	prize   []int
 }
 
-func (s Solution13) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution13) PartA(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, 0)
 }
 
-func (s Solution13) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution13) PartB(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, 10000000000000)
 }
 
@@ -89,10 +89,10 @@ func calcCost(clawMachine ClawMachine) int {
 	b1Y := float64(clawMachine.button1[1])
 	b2X := float64(clawMachine.button2[0])
 	b2Y := float64(clawMachine.button2[1])
-	iterButton1 := (b2Y*tX-b2X*tY)/(b1X*b2Y-b1Y*b2X)
-	iterButton2 := (b1Y*tX-b1X*tY)/(b1Y*b2X-b1X*b2Y)
-	if (math.Mod(iterButton1, 1) == 0 && math.Mod(iterButton2, 1) == 0) {
-		return int(3*iterButton1 + iterButton2)	
+	iterButton1 := (b2Y*tX - b2X*tY) / (b1X*b2Y - b1Y*b2X)
+	iterButton2 := (b1Y*tX - b1X*tY) / (b1Y*b2X - b1X*b2Y)
+	if math.Mod(iterButton1, 1) == 0 && math.Mod(iterButton2, 1) == 0 {
+		return int(3*iterButton1 + iterButton2)
 	}
 	return 0
 }

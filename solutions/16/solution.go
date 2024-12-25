@@ -1,4 +1,4 @@
-package solution15
+package solution16
 
 import (
 	"advent-of-code/solutions"
@@ -15,12 +15,12 @@ type Node struct {
 	direction utils.Direction
 }
 
-func (s Solution16) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution16) PartA(lineIterator *utils.LineIterator) any {
 	_, _, startNode, _, distances, _ := findShortestPath(lineIterator)
 	return int(distances[startNode])
 }
 
-func (s Solution16) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution16) PartB(lineIterator *utils.LineIterator) any {
 	nodes, neighbors, startNode, endNodes, preComputedDistances, _ := findShortestPath(lineIterator)
 
 	// Re-run Dijkstra with each of the four possible end nodes (one for each direction) using

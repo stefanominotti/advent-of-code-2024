@@ -20,6 +20,7 @@ replace advent-of-code/solutions/13 => ./solutions/13
 replace advent-of-code/solutions/14 => ./solutions/14
 replace advent-of-code/solutions/15 => ./solutions/15
 replace advent-of-code/solutions/16 => ./solutions/16
+replace advent-of-code/solutions/17 => ./solutions/17
 
 replace advent-of-code/utils => ./utils
 
@@ -41,5 +42,6 @@ require advent-of-code/solutions/13 v0.0.0-00010101000000-000000000000
 require advent-of-code/solutions/14 v0.0.0-00010101000000-000000000000
 require advent-of-code/solutions/15 v0.0.0-00010101000000-000000000000
 require advent-of-code/solutions/16 v0.0.0-00010101000000-000000000000
+require advent-of-code/solutions/17 v0.0.0-00010101000000-000000000000
 
 require advent-of-code/utils v0.0.0-00010101000000-000000000000 // indirect

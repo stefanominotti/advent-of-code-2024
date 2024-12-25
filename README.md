@@ -62,3 +62,4 @@ Here is a summary of the solutions so far, including their approximate execution
 | 14  | [Day 14](https://adventofcode.com/2024/day/14) | 0.658ms   | 63.671ms  |
 | 15  | [Day 15](https://adventofcode.com/2024/day/15) | 1.161ms   | 85.565ms  |
 | 16  | [Day 16](https://adventofcode.com/2024/day/16) | 346.989ms | 832.087ms |
+| 17  | [Day 17](https://adventofcode.com/2024/day/17) | 0.149ms   | 0.479ms   |

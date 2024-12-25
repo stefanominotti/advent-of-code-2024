@@ -7,8 +7,8 @@ import (
 
 // Solution interface with PartA and PartB
 type Solution interface {
-	PartA(lineIterator *utils.LineIterator) int
-	PartB(lineIterator *utils.LineIterator) int
+    PartA(lineIterator *utils.LineIterator) any
+    PartB(lineIterator *utils.LineIterator) any
 }
 
 // RunAll executes both PartA and PartB for all registered solutions.
@@ -38,5 +38,5 @@ var solutionRegistry = map[int]Solution{}
 
 // RegisterSolution adds a solution to the registry.
 func RegisterSolution(id int, solution Solution) {
-	solutionRegistry[id] = solution
+    solutionRegistry[id] = solution
 }

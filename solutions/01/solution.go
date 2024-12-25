@@ -10,7 +10,7 @@ import (
 
 type Solution01 struct{}
 
-func (s Solution01) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution01) PartA(lineIterator *utils.LineIterator) any {
 	leftList, rightList := buildLists(lineIterator)
 
 	result := 0
@@ -20,7 +20,7 @@ func (s Solution01) PartA(lineIterator *utils.LineIterator) int {
 	return result
 }
 
-func (s Solution01) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution01) PartB(lineIterator *utils.LineIterator) any {
 	leftList, rightList := buildLists(lineIterator)
 
 	scoresMap := map[int]int{}

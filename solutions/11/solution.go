@@ -9,11 +9,11 @@ import (
 
 type Solution11 struct{}
 
-func (s Solution11) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution11) PartA(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, 25)
 }
 
-func (s Solution11) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution11) PartB(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, 75)
 }
 
@@ -71,10 +71,10 @@ func splitStone(stone int, depth int, limit int, memory map[int][]int) int {
 				result += splitStone(next, depth+1, limit, memory)
 			}
 		} else {
-			result += splitStone(stone * 2024, depth+1, limit, memory)
+			result += splitStone(stone*2024, depth+1, limit, memory)
 		}
 	}
-	
+
 	// Save the number of stones generated from the current one
 	// to avoid future iterations in case the same stone
 	// is met again

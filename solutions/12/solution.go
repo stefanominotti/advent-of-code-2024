@@ -8,11 +8,11 @@ import (
 
 type Solution12 struct{}
 
-func (s Solution12) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution12) PartA(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, computeRegionPerimeterAndArea)
 }
 
-func (s Solution12) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution12) PartB(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, computeRegionSidesAndArea)
 }
 

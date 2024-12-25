@@ -9,7 +9,7 @@ import (
 
 type Solution05 struct{}
 
-func (s Solution05) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution05) PartA(lineIterator *utils.LineIterator) any {
 	processUpdateFunc := func(rules map[string]bool, update []string) int {
 		if isValidUpdate(rules, update) {
 			updateInts := utils.StringsToIntegers(update)
@@ -20,7 +20,7 @@ func (s Solution05) PartA(lineIterator *utils.LineIterator) int {
 	return processUpdates(lineIterator, processUpdateFunc)
 }
 
-func (s Solution05) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution05) PartB(lineIterator *utils.LineIterator) any {
 	processUpdateFunc := func(rules map[string]bool, update []string) int {
 		if !isValidUpdate(rules, update) {
 			update := fixUpdate(rules, update)

@@ -9,7 +9,7 @@ import (
 
 type Solution10 struct{}
 
-func (s Solution10) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution10) PartA(lineIterator *utils.LineIterator) any {
 	calculateScore := func(input [][]int, i int, j int) int {
 		heightsReachable := map[string]bool{}
 		return calculateScore(input, i, j, heightsReachable)
@@ -17,7 +17,7 @@ func (s Solution10) PartA(lineIterator *utils.LineIterator) int {
 	return runSolution(lineIterator, calculateScore)
 }
 
-func (s Solution10) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution10) PartB(lineIterator *utils.LineIterator) any {
 	calculateScore := func(input [][]int, i int, j int) int {
 		return calculateScore(input, i, j, nil)
 	}
@@ -34,7 +34,7 @@ func runSolution(lineIterator *utils.LineIterator, calculateScore func([][]int, 
 	result := 0
 	for i := 0; i < len(input); i++ {
 		for j := 0; j < len(input[i]); j++ {
-			// From each 0 calculate score 
+			// From each 0 calculate score
 			if input[i][j] == 0 {
 				result += calculateScore(input, i, j)
 			}

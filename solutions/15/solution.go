@@ -8,11 +8,11 @@ import (
 
 type Solution15 struct{}
 
-func (s Solution15) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution15) PartA(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, false, "O", moveSingleBox)
 }
 
-func (s Solution15) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution15) PartB(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, true, "[", moveDoubleBox)
 }
 
@@ -175,7 +175,7 @@ func moveDoubleBox(warehouse [][]string, move [2]int, i int, j int) [][]string {
 	}
 
 	// If both next cells are now empty, move the current box
-	// Otherwise, restore the warehouse to avoid inconsistencies, 
+	// Otherwise, restore the warehouse to avoid inconsistencies,
 	// as it's possible that only one of the two boxes in the next cells was moved.
 	// Both boxes must move together or not at all
 	if warehouseCopy[nextI][nextJ] == "." && warehouseCopy[nextPairI][nextPairJ] == "." {

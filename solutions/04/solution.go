@@ -16,7 +16,7 @@ func xmas() []string {
 	return []string{"X", "M", "A", "S"}
 }
 
-func (s Solution04) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution04) PartA(lineIterator *utils.LineIterator) any {
 	return wordSearch(lineIterator, countXmasFromPosition)
 }
 
@@ -32,17 +32,17 @@ func countXmasFromPosition(input [][]string, i int, j int) int {
 			// Given the direction, for each XMAS word check whether the expected word is found
 			for idx, expected := range xmas() {
 				// Increment i and j in the given direction
-				incrementedI := i+iDir*idx
-				incrementedJ := j+jDir*idx
+				incrementedI := i + iDir*idx
+				incrementedJ := j + jDir*idx
 				// Position is out of bound
-				if (utils.IsOutbound(input, incrementedI, incrementedJ)) {
+				if utils.IsOutbound(input, incrementedI, incrementedJ) {
 					break
 				}
 				// Expected XMAS word not found
 				if input[incrementedI][incrementedJ] != expected {
 					break
 				}
-				if (idx == len(xmas()) - 1) {
+				if idx == len(xmas())-1 {
 					xmasCount += 1
 				}
 			}
@@ -60,9 +60,9 @@ func rightLeft() Diagonal {
 	return [][]int{{1, -1}, {-1, 1}}
 }
 
-func (s Solution04) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution04) PartB(lineIterator *utils.LineIterator) any {
 	searchFunction := func(input [][]string, i int, j int) int {
-		if (isMasDiagonal(input, i, j, leftRight()) && isMasDiagonal(input, i, j, rightLeft())) {
+		if isMasDiagonal(input, i, j, leftRight()) && isMasDiagonal(input, i, j, rightLeft()) {
 			return 1
 		}
 		return 0
@@ -75,22 +75,22 @@ func isMasDiagonal(input [][]string, i int, j int, diagonal Diagonal) bool {
 		return false
 	}
 
-	startI := i+diagonal[0][0]
-	startJ := j+diagonal[0][1]
-	if (utils.IsOutbound(input, startI, startJ)) {
+	startI := i + diagonal[0][0]
+	startJ := j + diagonal[0][1]
+	if utils.IsOutbound(input, startI, startJ) {
 		return false
 	}
 
-	endI := i+diagonal[1][0]
-	endJ := j+diagonal[1][1]
-	if (utils.IsOutbound(input, endI, endJ)) {
+	endI := i + diagonal[1][0]
+	endJ := j + diagonal[1][1]
+	if utils.IsOutbound(input, endI, endJ) {
 		return false
 	}
 
 	if input[startI][startJ] == "M" && input[endI][endJ] == "S" {
 		return true
 	}
-	
+
 	return input[startI][startJ] == "S" && input[endI][endJ] == "M"
 }
 

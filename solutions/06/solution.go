@@ -8,7 +8,7 @@ import (
 
 type Solution06 struct{}
 
-func (s Solution06) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution06) PartA(lineIterator *utils.LineIterator) any {
 	resultComputingFunc := func(input [][]string, i int, j int, direction utils.Direction, visited [][][]utils.Direction) int {
 
 		travelWithoutAddingObstacles(input, i, j, utils.TopDirection, visited)
@@ -28,7 +28,7 @@ func (s Solution06) PartA(lineIterator *utils.LineIterator) int {
 	return runSolution(lineIterator, resultComputingFunc)
 }
 
-func (s Solution06) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution06) PartB(lineIterator *utils.LineIterator) any {
 	resultComputingFunc := func(input [][]string, i int, j int, direction utils.Direction, visited [][][]utils.Direction) int {
 		// Build matrix to keep track of possible extra obstacles
 		possibleObstacles := [][]bool{}

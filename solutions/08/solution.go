@@ -8,11 +8,11 @@ import (
 
 type Solution08 struct{}
 
-func (s Solution08) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution08) PartA(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, addAntinodesPartA)
 }
 
-func (s Solution08) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution08) PartB(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, addAntinodesPartB)
 }
 

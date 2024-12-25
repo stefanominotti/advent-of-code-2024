@@ -19,11 +19,11 @@ const (
 	None     Operator = ""
 )
 
-func (s Solution07) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution07) PartA(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, getNextOperatorWithoutConcat)
 }
 
-func (s Solution07) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution07) PartB(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, getNextOperatorWithConcat)
 }
 
@@ -57,12 +57,12 @@ func calculateOperators(target int, numbers []int, getNextOperator func(Operator
 		}
 	}
 	partials := make([]int, len(operators))
-    partials[0] = numbers[0]
+	partials[0] = numbers[0]
 	return calculateOperatorsRec(target, numbers, operators, getNextOperator, partials, 0)
 }
 
-func calculateOperatorsRec(target int, numbers []int, operators []Operator, getNextOperator func(Operator, int, int) Operator, partials []int, partialsValid int) ([]Operator, bool) {	
-	// Calculate result by sequentially applying operators starting after the 
+func calculateOperatorsRec(target int, numbers []int, operators []Operator, getNextOperator func(Operator, int, int) Operator, partials []int, partialsValid int) ([]Operator, bool) {
+	// Calculate result by sequentially applying operators starting after the
 	// partial which are not valid (i.e. the partials after the operator change)
 	// At the same time build an array of the next operators to try
 	// i.e. operators which gives the next higher result than the current ones
@@ -73,7 +73,7 @@ func calculateOperatorsRec(target int, numbers []int, operators []Operator, getN
 		if partialsValid <= idx {
 			nextOperators[idx] = getNextOperator(operator, result, numbers[idx+1])
 			result = applyOperator(result, numbers[idx+1], operator)
-			if (idx+1 < len(partials)) {
+			if idx+1 < len(partials) {
 				partials[idx+1] = result
 			}
 		} else {

@@ -8,11 +8,11 @@ import (
 
 type Solution09 struct{}
 
-func (s Solution09) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution09) PartA(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, buildFilesystemPartA)
 }
 
-func (s Solution09) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution09) PartB(lineIterator *utils.LineIterator) any {
 	return runSolution(lineIterator, buildFilesystemPartB)
 }
 

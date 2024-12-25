@@ -13,7 +13,7 @@ type Robot struct {
 	velocities [2]int
 }
 
-func (s Solution14) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution14) PartA(lineIterator *utils.LineIterator) any {
 	robots := parseInput(lineIterator)
 
 	quadrants := [4]int{}
@@ -41,7 +41,7 @@ func (s Solution14) PartA(lineIterator *utils.LineIterator) int {
 	return result
 }
 
-func (s Solution14) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution14) PartB(lineIterator *utils.LineIterator) any {
 	robots := parseInput(lineIterator)
 
 	robotsMap := [101][103]bool{}

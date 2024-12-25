@@ -9,7 +9,7 @@ import (
 
 type Solution03 struct{}
 
-func (s Solution03) PartA(lineIterator *utils.LineIterator) int {
+func (s Solution03) PartA(lineIterator *utils.LineIterator) any {
 	result := 0
 	regex := regexp.MustCompile(`mul\(\d+,\d+\)`)
 
@@ -29,7 +29,7 @@ const (
 	Dont DoOperation = "don't()"
 )
 
-func (s Solution03) PartB(lineIterator *utils.LineIterator) int {
+func (s Solution03) PartB(lineIterator *utils.LineIterator) any {
 	result := 0
 	regex := regexp.MustCompile(`mul\(\d+,\d+\)|do\(\)|don't\(\)`)
 

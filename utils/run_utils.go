@@ -13,14 +13,14 @@ func filePath(day int) string {
 	return fmt.Sprintf("solutions/%02d/input.txt", day)
 }
 
-func RunSolution(day int, processingFunctions ...func(lineIterator *LineIterator) int) {
+func RunSolution[T any](day int, processingFunctions ...func(lineIterator *LineIterator) T) {
 	downloadInput(day)
 	fmt.Printf("Day %d\n", day)
 	for idx, function := range processingFunctions {
 		start := time.Now() // Record the start time
 		result := processFile(day, function) // Call your processFile function
 		elapsed := time.Since(start) 
-		fmt.Printf("Part %s: %d (%s)\n", string('A'+idx), result, elapsed)
+		fmt.Printf("Part %s: %v (%s)\n", string('A'+idx), result, elapsed)
 	}
 }
 
@@ -77,7 +77,7 @@ func downloadInput(day int) {
 	}
 }
 
-func processFile(day int, processingFunction func(lineIterator *LineIterator) int) int {
+func processFile[T any](day int, processingFunction func(lineIterator *LineIterator) T) T {
 	// Open input file
 	readFile, err := os.Open(filePath(day))
 
